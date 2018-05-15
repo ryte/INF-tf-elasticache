@@ -4,7 +4,8 @@ variable "environment" {}
 variable "owner" {}
 variable "project" {}
 variable "short_name" {
-  default = "" //maximum length = 20
+  default = ""
+  description ="redis ressource name, maximum length are 20 chars"
 }
 
 variable "subnet_ids" {
