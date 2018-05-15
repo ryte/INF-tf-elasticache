@@ -3,6 +3,9 @@ variable "domain" {}
 variable "environment" {}
 variable "owner" {}
 variable "project" {}
+variable "short_name" {
+  default = "" //maximum length = 20
+}
 
 variable "subnet_ids" {
   type = "list"
