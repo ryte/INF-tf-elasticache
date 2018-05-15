@@ -1,12 +1,12 @@
 resource "aws_elasticache_subnet_group" "redis" {
-  name       = "${local.short_name}"
+  name       = "${var.short_name != "" ? substr(var.short_name, 0, min(20, length(var.short_name))) : local.short_name}"
   subnet_ids = ["${var.subnet_ids}"]
   #tags       = "${merge(local.tags, map("Name", "${var.project}-${var.environment}-subnet-group-redis"))}"
 }
 
 resource "aws_elasticache_cluster" "redis" {
 
-  cluster_id             = "${local.short_name}"
+  cluster_id             = "${var.short_name != "" ? substr(var.short_name, 0, min(20, length(var.short_name))) : local.short_name}"
   engine                 = "redis"
   engine_version         = "${var.engine_version}"
   node_type              = "${var.node_type}"
