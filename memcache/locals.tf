@@ -1,12 +1,14 @@
 locals {
-  tags = {
-    CID         = "${var.cid}"
-    Environment = "${var.environment}"
-    Module      = "memcached"
-    Owner       = "${var.owner}"
-    Project     = "${var.project}"
-  }
-
-  short_name = "${substr(var.environment, 0, var.short_name_length)}-${substr(var.project, 0, var.short_name_length)}-memcache"
+  name = "${var.tags["Environment"]}-memcache-${var.name}"
 }
 
+locals {
+  short_name = "${substr("${local.name}", 0, min(20, length(local.name)))}",
+  tags = "${merge(
+    var.tags,
+    map(
+      "Module", "memcached",
+      "Name", "${local.name}"
+    )
+  )}"
+}

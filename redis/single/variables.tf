@@ -1,12 +1,9 @@
-variable "cid" {}
-variable "domain" {}
-variable "environment" {}
-variable "owner" {}
-variable "project" {}
-variable "short_name" {
-  default = ""
-  description ="redis ressource name, maximum length are 20 chars"
+variable "tags" {
+  type = "map"
+  description = "common tags to add to the ressources"
+  default = {}
 }
+variable "domain" {}
 
 variable "subnet_ids" {
   type = "list"
