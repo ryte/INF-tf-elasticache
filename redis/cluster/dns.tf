@@ -3,7 +3,7 @@ data "aws_route53_zone" "zone" {
 }
 
 resource "aws_route53_record" "record" {
-  name = "${var.config_hostname}.${var.domain}."
+  name = "${var.hostname}.${var.domain}."
 
   records = [
     "${aws_elasticache_replication_group.redis.configuration_endpoint_address}"
