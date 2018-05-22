@@ -1,5 +1,5 @@
 locals {
-  name = "${var.tags["Environment"]}-redis-${var.name}"
+  name = "${var.tags["Environment"]}-redis-${var.hostname}"
 }
 
 locals {
@@ -7,7 +7,7 @@ locals {
   tags = "${merge(
     var.tags,
     map(
-      "Module", "memcached",
+      "Module", "redis-cluster",
       "Name", "${local.name}"
     )
   )}"

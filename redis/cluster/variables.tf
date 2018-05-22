@@ -9,7 +9,7 @@ variable "subnet_ids" {
   type = "list"
 }
 
-variable "config_hostname" {
+variable "hostname" {
   default = "redis"
 }
 
