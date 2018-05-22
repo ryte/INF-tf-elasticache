@@ -1,13 +1,12 @@
 data "aws_availability_zones" "available" {}
 
 resource "aws_elasticache_subnet_group" "redis" {
-  name       = "${local.short_name}"
+  name       = "${var.hostname}"
   subnet_ids = ["${var.subnet_ids}"]
-  #tags       = "${merge(local.tags, map("Name", "${var.project}-${var.environment}-subnet-group-redis"))}"
 }
 
 resource "aws_elasticache_replication_group" "redis" {
-  replication_group_id          = "${local.short_name}"
+  replication_group_id          = "${var.hostname}"
   replication_group_description = "${var.description}"
   node_type                     = "${var.node_type}"
   engine_version                = "${var.engine_version}"
@@ -38,11 +37,11 @@ resource "aws_security_group" "redis" {
     security_groups = ["${var.csgs}", "${aws_security_group.intra.id}"]
   }
 
-  tags   = "${merge(local.tags, map("Name", "${var.project}-${var.environment}-redis-sg"))}"
+  tags   = "${merge(local.tags, map("Name", "${local.name}-sg"))}"
   vpc_id = "${var.vpc_id}"
 }
 
 resource "aws_security_group" "intra" {
-  tags   = "${merge(local.tags, map("Name", "${var.project}-${var.environment}-redis-intra"))}"
+  tags   = "${merge(local.tags, map("Name", "${local.name}-intra"))}"
   vpc_id = "${var.vpc_id}"
 }

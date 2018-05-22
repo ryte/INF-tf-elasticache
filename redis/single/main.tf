@@ -1,12 +1,11 @@
 resource "aws_elasticache_subnet_group" "redis" {
-  name       = "${var.short_name != "" ? substr(var.short_name, 0, min(20, length(var.short_name))) : local.short_name}"
+  name       = "${var.hostname}"
   subnet_ids = ["${var.subnet_ids}"]
-  #tags       = "${merge(local.tags, map("Name", "${var.project}-${var.environment}-subnet-group-redis"))}"
 }
 
 resource "aws_elasticache_cluster" "redis" {
 
-  cluster_id             = "${var.short_name != "" ? substr(var.short_name, 0, min(20, length(var.short_name))) : local.short_name}"
+  cluster_id             = "${var.hostname}"
   engine                 = "redis"
   engine_version         = "${var.engine_version}"
   node_type              = "${var.node_type}"
@@ -16,7 +15,7 @@ resource "aws_elasticache_cluster" "redis" {
   security_group_ids     = ["${aws_security_group.redis.id}"]
   maintenance_window     = "sun:02:30-sun:03:30"
   port                   = "${var.application_port}"
-  tags                   = "${merge(local.tags, map("Name", "${var.project}-${var.environment}-redis"))}"
+  tags                   = "${merge(local.tags)}"
 
 }
 
@@ -36,11 +35,11 @@ resource "aws_security_group" "redis" {
     security_groups = ["${var.csgs}", "${aws_security_group.intra.id}"]
   }
 
-  tags   = "${merge(local.tags, map("Name", "${var.project}-${var.environment}-redis-sg"))}"
+  tags   = "${merge(local.tags, map("Name", "${local.name}-sg"))}"
   vpc_id = "${var.vpc_id}"
 }
 
 resource "aws_security_group" "intra" {
-  tags   = "${merge(local.tags, map("Name", "${var.project}-${var.environment}-redis-intra"))}"
+  tags   = "${merge(local.tags, map("Name", "${local.name}-intra"))}"
   vpc_id = "${var.vpc_id}"
 }

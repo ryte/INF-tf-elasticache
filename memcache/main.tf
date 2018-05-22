@@ -1,12 +1,11 @@
 resource "aws_elasticache_subnet_group" "memcache" {
-  name       = "${local.short_name}"
+  name       = "${var.hostname}"
   subnet_ids = ["${var.subnet_ids}"]
-  #tags       = "${merge(local.tags, map("Name", "${var.project}-${var.environment}-subnet-group-memcache"))}"
 }
 
 resource "aws_elasticache_cluster" "memcache" {
 
-  cluster_id             = "${local.short_name}"
+  cluster_id             = "${var.hostname}"
   engine                 = "memcached"
   engine_version         = "${var.engine_version}"
   node_type              = "${var.instance_type}"
@@ -17,7 +16,7 @@ resource "aws_elasticache_cluster" "memcache" {
   security_group_ids     = ["${aws_security_group.memcache.id}"]
   maintenance_window     = "sun:02:30-sun:03:30"
   port                   = "${var.application_port}"
-  tags                   = "${merge(local.tags, map("Name", "${var.project}-${var.environment}-memcache"))}"
+  tags                   = "${merge(local.tags)}"
 
 }
 
@@ -37,11 +36,11 @@ resource "aws_security_group" "memcache" {
     security_groups = ["${var.csgs}", "${aws_security_group.intra.id}"]
   }
 
-  tags   = "${merge(local.tags, map("Name", "${var.project}-${var.environment}-memcache-sg"))}"
+  tags   = "${merge(local.tags, map("Name", "${local.name}-sg"))}"
   vpc_id = "${var.vpc_id}"
 }
 
 resource "aws_security_group" "intra" {
-  tags   = "${merge(local.tags, map("Name", "${var.project}-${var.environment}-memcache-intra"))}"
+  tags   = "${merge(local.tags, map("Name", "${local.name}-intra"))}"
   vpc_id = "${var.vpc_id}"
 }
