@@ -9,3 +9,7 @@ output "database_fqdn" {
 output "sg_intra" {
   value = "${aws_security_group.intra.id}"
 }
+
+output "sg" {
+  value = "${aws_security_group.memcache.id}"
+}
