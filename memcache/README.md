@@ -114,20 +114,17 @@ module "memcache" {
 - `memcache_address`
     -  __description__: cluster adress
     -  __type__: `string`
-}
+
 
 - `database_fqdn`
     -  __description__: fqdn created from domain and hostname
     -  __type__: `string`
-}
+
 
 - `sg_intra` (DEPRECATED)
     -  __description__: an intra SG, intended to added to EC2 instsances for access
     -  __type__: `string`
-  value = "${aws_security_group.intra.id}"
-}
 
 - `sg`
     -  __description__: SG which is attached to the service
     -  __type__: `string`
-}
