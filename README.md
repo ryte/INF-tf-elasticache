@@ -8,7 +8,7 @@ currently available settings
 
 
 This project is [internal open source](https://en.wikipedia.org/wiki/Inner_source)
-and currently maintained by the [INF](https://github.com/orgs/onpage-org/teams/inf).
+and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
 ## Authors
 
@@ -17,7 +17,7 @@ and currently maintained by the [INF](https://github.com/orgs/onpage-org/teams/i
 
 ## Changelog
 
-0.1.0 - Initial release.
+- 0.1.0 - Initial release.
 
 ## License
 

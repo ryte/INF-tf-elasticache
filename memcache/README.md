@@ -5,7 +5,7 @@ Terraform module for creating a aws elasticache memcache
 NOTE: keep the names short, since the maximum length for the name is 20
 
 This project is [internal open source](https://en.wikipedia.org/wiki/Inner_source)
-and currently maintained by the [INF](https://github.com/orgs/onpage-org/teams/inf).
+and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
 ## Module Input Variables
 
@@ -105,7 +105,7 @@ module "memcache" {
     "${data.terraform_remote_state.vpc.subnet_private}",
   ]
   csgs                 = []
-  source               = "git@github.com:onpage-org/INF-tf-elasticache.git?ref=v0.1.0//memcache"
+  source               = "github.com/ryte/INF-tf-elasticache.git?ref=v0.1.0//memcache"
 }
 ```
 
