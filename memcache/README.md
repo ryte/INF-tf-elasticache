@@ -105,7 +105,7 @@ module "memcache" {
     "${data.terraform_remote_state.vpc.subnet_private}",
   ]
   csgs                 = []
-  source               = "git@github.com:ryte/INF-tf-elasticache.git?ref=v0.1.0//memcache"
+  source               = "github.com/ryte/INF-tf-elasticache.git?ref=v0.1.0//memcache"
 }
 ```
 
