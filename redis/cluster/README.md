@@ -110,7 +110,7 @@ module "redis_cluster" {
     "${data.terraform_remote_state.vpc.subnet_private}",
   ]
   csgs                    = []
-  source                  = "git@github.com:ryte/INF-tf-elasticache.git?ref=v0.1.0//redis/cluster"
+  source                  = "github.com/ryte/INF-tf-elasticache.git?ref=v0.1.0//redis/cluster"
 }
 ```
 
