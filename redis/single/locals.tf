@@ -3,12 +3,13 @@ locals {
 }
 
 locals {
-  short_name = "${substr("${local.name}", 0, min(20, length(local.name)))}",
-  tags = "${merge(
+  short_name = substr(local.name, 0, min(20, length(local.name)))
+  tags = merge(
     var.tags,
-    map(
-      "Module", "redis",
-      "Name", "${local.name}"
-    )
-  )}"
+    {
+      "Module" = "redis"
+      "Name"   = local.name
+    },
+  )
 }
+

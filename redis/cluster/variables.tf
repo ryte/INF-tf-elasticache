@@ -1,12 +1,14 @@
 variable "tags" {
-  type = "map"
+  type        = map(string)
   description = "common tags to add to the ressources"
-  default = {}
+  default     = {}
 }
-variable "domain" {}
+
+variable "domain" {
+}
 
 variable "subnet_ids" {
-  type = "list"
+  type = list(string)
 }
 
 variable "hostname" {
@@ -17,10 +19,11 @@ variable "short_name_length" {
   default = 4
 }
 
-variable "vpc_id" {}
+variable "vpc_id" {
+}
 
 variable "csgs" {
-  type    = "list"
+  type    = list(string)
   default = []
 }
 
@@ -43,6 +46,7 @@ variable "parameter_group_name" {
 variable "replicas_per_node_group" {
   default = 1
 }
+
 variable "num_node_groups" {
   default = 2
 }
@@ -50,3 +54,4 @@ variable "num_node_groups" {
 variable "description" {
   default = ""
 }
+
