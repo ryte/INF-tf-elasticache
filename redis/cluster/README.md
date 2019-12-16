@@ -92,25 +92,21 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
 ```hcl
 module "redis_cluster" {
-  cid                     = "${var.cid}"
-  environment             = "${terraform.workspace}"
-  owner                   = "${var.owner}"
-  project                 = "${var.project}"
-  domain                  = "${var.domain}"
+  domain                  = var.domain
+  engine_version          = "5.0.5"
+  tags                    = local.common_tags
+
   description             = "Redis Cluster"
   config_hostname         = "rediscluster"
-  engine_version          = "3.2.10"
-  parameter_group_name    = "default.redis3.2.cluster.on"
+  parameter_group_name    = "default.redis5.0.cluster.on"
   application_port        = 6379
-  node_type               = "cache.t2.small"
+  node_type               = "cache.t3.small"
   replicas_per_node_group = 1
   num_node_groups         = 2
-  vpc_id                  = "${data.terraform_remote_state.vpc.vpc_id}"
-  subnet_ids              = [
-    "${data.terraform_remote_state.vpc.subnet_private}",
-  ]
+  vpc_id                  = data.terraform_remote_state.vpc.vpc_id
+  subnet_ids              = data.terraform_remote_state.vpc.subnet_private
   csgs                    = []
-  source                  = "github.com/ryte/INF-tf-elasticache.git?ref=v0.1.0//redis/cluster"
+  source                  = "github.com/ryte/INF-tf-elasticache//redis/cluster?ref=v0.2.0"
 }
 ```
 

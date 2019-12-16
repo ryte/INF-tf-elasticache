@@ -88,24 +88,18 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
 ```hcl
 module "memcache" {
-  cid                  = "${var.cid}"
-  environment          = "${terraform.workspace}"
-  owner                = "${var.owner}"
-  project              = "${var.project}"
-  domain               = "${var.domain}"
+  domain               = var.domain
   hostname             = "memcache"
   desired_clusters     = 1
   az_mode              = "cross-az"
-  engine_version       = "1.4.34"
-  parameter_group_name = "default.memcached1.4"
+  engine_version       = "1.5.16"
+  parameter_group_name = "default.memcached1.5"
   application_port     = 11211
-  instance_type        = "cache.t2.small"
-  vpc_id               = "${data.terraform_remote_state.vpc.vpc_id}"
-  subnet_ids           = [
-    "${data.terraform_remote_state.vpc.subnet_private}",
-  ]
+  instance_type        = "cache.t3.small"
+  vpc_id               = data.terraform_remote_state.vpc.vpc_id
+  subnet_ids           = data.terraform_remote_state.vpc.subnet_private
   csgs                 = []
-  source               = "github.com/ryte/INF-tf-elasticache.git?ref=v0.1.0//memcache"
+  source               = "github.com/ryte/INF-tf-elasticache//memcache?ref=v0.2.0"
 }
 ```
 

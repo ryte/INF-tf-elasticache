@@ -76,20 +76,22 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
 ```hcl
 module "redis" {
-  cid                  = var.cid
-  environment          = terraform.workspace
-  owner                = var.owner
-  project              = var.project
-  domain               = var.domain
-  hostname             = "redis"
-  engine_version       = "3.2.10"
-  parameter_group_name = "default.redis3.2"
+  tags                 = local.common_tags
+  domain               = local.domain
+  engine_version       = "5.0.5"
+  parameter_group_name = "default.redis5.0"
   application_port     = 6379
-  node_type            = "cache.t2.small"
-  vpc_id               = data.terraform_remote_state.vpc.vpc_id
-  subnet_ids           = data.terraform_remote_state.vpc.subnet_private
-  csgs                 = []
-  source               = "github.com/ryte/INF-tf-elasticache.git?ref=v0.1.0//redis/single"
+  node_type            = "cache.t3.small"
+  hostname             = "redis"
+
+  vpc_id = data.terraform_remote_state.vpc.outputs.vpc_id
+
+  subnet_ids = data.terraform_remote_state.vpc.outputs.subnet_private
+
+  csgs = [
+    data.terraform_remote_state.ecs.outputs.ecs_cluster_sg,
+  ]
+  source = "github.com/ryte/INF-tf-elasticache//redis/single?ref=v0.2.0"
 }
 ```
 
