@@ -76,20 +76,18 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
 ```hcl
 module "redis" {
-  cid                  = "${var.cid}"
-  environment          = "${terraform.workspace}"
-  owner                = "${var.owner}"
-  project              = "${var.project}"
-  domain               = "${var.domain}"
+  cid                  = var.cid
+  environment          = terraform.workspace
+  owner                = var.owner
+  project              = var.project
+  domain               = var.domain
   hostname             = "redis"
   engine_version       = "3.2.10"
   parameter_group_name = "default.redis3.2"
   application_port     = 6379
   node_type            = "cache.t2.small"
-  vpc_id               = "${data.terraform_remote_state.vpc.vpc_id}"
-  subnet_ids           = [
-    "${data.terraform_remote_state.vpc.subnet_private}",
-  ]
+  vpc_id               = data.terraform_remote_state.vpc.vpc_id
+  subnet_ids           = data.terraform_remote_state.vpc.subnet_private
   csgs                 = []
   source               = "github.com/ryte/INF-tf-elasticache.git?ref=v0.1.0//redis/single"
 }
@@ -110,7 +108,7 @@ module "redis" {
 - `sg_intra` (DEPRECATED)
     -  __description__: an intra SG, intended to added to EC2 instsances for access
     -  __type__: `string`
-  value = "${aws_security_group.intra.id}"
+  value = aws_security_group.intra.id
 }
 
 - `sg`
