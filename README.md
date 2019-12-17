@@ -17,6 +17,7 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
 ## Changelog
 
+- 0.1.1 - fix cluster security groups
 - 0.1.0 - Initial release.
 
 ## License

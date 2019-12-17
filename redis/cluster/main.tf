@@ -12,6 +12,7 @@ resource "aws_elasticache_replication_group" "redis" {
   engine_version                = "${var.engine_version}"
   port                          = "${var.application_port}"
   parameter_group_name          = "${var.parameter_group_name}"
+  security_group_ids            = ["${aws_security_group.redis.id}"]
   automatic_failover_enabled    = true
   subnet_group_name             = "${aws_elasticache_subnet_group.redis.name}"
   cluster_mode {
