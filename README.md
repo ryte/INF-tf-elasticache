@@ -19,6 +19,7 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
 - 0.2.1 - fix cluster security groups
 - 0.2.0 - Upgrade to terraform 0.12.x
+- 0.1.1 - fix cluster security groups
 - 0.1.0 - Initial release.
 
 ## License
