@@ -1,5 +1,5 @@
 locals {
-  name = "${var.tags["Environment"]}-redis-${var.hostname}"
+  name = "${var.environment}-redis-${var.hostname}"
 }
 
 locals {
@@ -12,4 +12,3 @@ locals {
     },
   )
 }
-

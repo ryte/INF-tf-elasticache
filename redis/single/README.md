@@ -30,6 +30,9 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
     -  __type__: `string`
     -  __default__: "3.2.10"
 
+- `environment`
+    -  __description__: the environment this cache is running in (e.g. 'testing')
+    -  __type__: `string`
 
 - `hostname`
     -  __description__: hostname of the redis
@@ -76,7 +79,10 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
 ```hcl
 module "redis" {
-  tags                 = local.common_tags
+  source      = "github.com/ryte/INF-tf-elasticache//redis/single?ref=v0.2.2"
+  tags        = local.common_tags
+  environment = var.environment
+
   domain               = local.domain
   engine_version       = "5.0.5"
   parameter_group_name = "default.redis5.0"
@@ -91,7 +97,6 @@ module "redis" {
   csgs = [
     data.terraform_remote_state.ecs.outputs.ecs_cluster_sg,
   ]
-  source = "github.com/ryte/INF-tf-elasticache//redis/single?ref=v0.2.0"
 }
 ```
 

@@ -52,3 +52,5 @@ variable "parameter_group_name" {
   default = "default.memcached1.4"
 }
 
+variable "environment" {
+}

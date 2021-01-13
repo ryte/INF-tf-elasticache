@@ -1,5 +1,5 @@
 locals {
-  name = "${var.tags["Environment"]}-memcache-${var.name}"
+  name = "${var.environment}-memcache-${var.name}"
 }
 
 locals {

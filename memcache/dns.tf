@@ -13,4 +13,3 @@ resource "aws_route53_record" "record" {
   type    = "CNAME"
   zone_id = data.aws_route53_zone.zone.id
 }
-

@@ -13,4 +13,3 @@ output "sg_intra" {
 output "sg" {
   value = aws_security_group.redis.id
 }
-

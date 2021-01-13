@@ -42,6 +42,9 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
     -  __type__: `string`
     -  __default__: "1.4.34"
 
+- `environment`
+    -  __description__: the environment this cache is running in (e.g. 'testing')
+    -  __type__: `string`
 
 - `hostname`
     -  __description__: hostname of the memcache
@@ -88,6 +91,10 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
 ```hcl
 module "memcache" {
+  source      = "github.com/ryte/INF-tf-elasticache//memcache?ref=v0.2.2"
+  tags        = local.common_tags
+  environment = var.environment
+
   domain               = var.domain
   hostname             = "memcache"
   desired_clusters     = 1
@@ -99,7 +106,6 @@ module "memcache" {
   vpc_id               = data.terraform_remote_state.vpc.vpc_id
   subnet_ids           = data.terraform_remote_state.vpc.subnet_private
   csgs                 = []
-  source               = "github.com/ryte/INF-tf-elasticache//memcache?ref=v0.2.0"
 }
 ```
 
