@@ -14,7 +14,7 @@ resource "aws_elasticache_cluster" "redis" {
   security_group_ids   = [aws_security_group.redis.id]
   maintenance_window   = "sun:02:30-sun:03:30"
   port                 = var.application_port
-  tags                 = merge(local.tags)
+  tags                 = local.tags
 }
 
 resource "aws_security_group" "redis" {
@@ -32,22 +32,11 @@ resource "aws_security_group" "redis" {
     security_groups = concat(var.csgs, [aws_security_group.intra.id])
   }
 
-  tags = merge(
-    local.tags,
-    {
-      "Name" = "${local.name}-sg"
-    },
-  )
+  tags = merge(local.tags, {Name = "${local.name}-sg"})
   vpc_id = var.vpc_id
 }
 
 resource "aws_security_group" "intra" {
-  tags = merge(
-    local.tags,
-    {
-      "Name" = "${local.name}-intra"
-    },
-  )
+  tags = merge(local.tags, {Name = "${local.name}-intra"})
   vpc_id = var.vpc_id
 }
-

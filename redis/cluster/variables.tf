@@ -55,3 +55,5 @@ variable "description" {
   default = ""
 }
 
+variable "environment" {
+}

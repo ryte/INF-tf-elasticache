@@ -37,22 +37,11 @@ resource "aws_security_group" "redis" {
     security_groups = concat(var.csgs, [aws_security_group.intra.id])
   }
 
-  tags = merge(
-    local.tags,
-    {
-      "Name" = "${local.name}-sg"
-    },
-  )
+  tags = merge(local.tags, {Name = "${local.name}-sg"})
   vpc_id = var.vpc_id
 }
 
 resource "aws_security_group" "intra" {
-  tags = merge(
-    local.tags,
-    {
-      "Name" = "${local.name}-intra"
-    },
-  )
+  tags = merge(local.tags, {Name = "${local.name}-intra"})
   vpc_id = var.vpc_id
 }
-

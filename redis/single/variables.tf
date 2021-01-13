@@ -43,3 +43,5 @@ variable "parameter_group_name" {
   default = "default.redis3.2"
 }
 
+variable "environment" {
+}
