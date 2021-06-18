@@ -17,6 +17,7 @@ and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
 ## Changelog
 
+- 0.2.3 - fix typo in variable name in `memcache`
 - 0.2.2 - Add variable `environment` instead of reading from tags
 - 0.2.1 - fix cluster security groups
 - 0.2.0 - Upgrade to terraform 0.12.x
