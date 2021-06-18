@@ -1,5 +1,5 @@
 locals {
-  name = "${var.environment}-memcache-${var.name}"
+  name = "${var.environment}-memcache-${var.hostname}"
 }
 
 locals {
