@@ -7,74 +7,136 @@ NOTE: keep the names short, since the maximum length for the name is 20
 This project is [internal open source](https://en.wikipedia.org/wiki/Inner_source)
 and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
-## Module Input Variables
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
 
-- `application_port`
-    -  __description__: port the service licenses to
-    -  __type__: `string`
-    -  __default__: 6379
+The following requirements are needed by this module:
 
+- terraform (>= 0.12)
 
-- `csgs`
-    -  __description__: security groups which get added to the security group as ingress
-    -  __type__: `list`
-    -  __default__: []
+## Providers
 
+The following providers are used by this module:
 
-- `domain`
-    -  __description__: the module creates a route53 domain entry and therefore need the domain in which the entry should be created
-    -  __type__: `string`
+- aws
 
-- `engine_version`
-    -  __description__: redis version to run
-    -  __type__: `string`
-    -  __default__: "3.2.10"
+## Required Inputs
 
-- `environment`
-    -  __description__: the environment this cache is running in (e.g. 'testing')
-    -  __type__: `string`
+The following input variables are required:
 
-- `hostname`
-    -  __description__: hostname of the redis
-    -  __type__: `string`
-    -  __default__: "redis"
+### domain
 
+Description: the module creates a route53 domain entry and therefore need the domain in which the entry should be created
 
-- `node_type`
-    -  __description__: type of machine to run on
-    -  __type__: `string`
-    -  __default__: "cache.t2.small"
+Type: `string`
 
+### environment
 
-- `parameter_group_name`
-    -  __description__: parameter group for the redis
-    -  __type__: `string`
-    -  __default__: "default.redis3.2"
+Description: the environment this cache is running in (e.g. 'testing')
 
+Type: `string`
 
-- `short_name_length`
-    -  __description__: desired string length which is applied to various naming strings, to make the names shorter
-    -  __type__: `string`
-    -  __default__: 4
+### subnet\_ids
 
+Description: a list of subnet ids in which the ASG deploys to
 
-- `subnet_ids`
-    -  __description__: a list of subnet ids in which the ASG deploys to
-    -  __type__: `list`
+Type: `list(string)`
 
+### vpc\_id
 
-- `tags`
-    -  __description__: a map of tags which is added to all supporting ressources
-    -  __type__: `map`
-    -  __default__: {}
+Description: the VPC the ASG should be deployed in
 
+Type: `string`
 
-- `vpc_id`
-    -  __description__: the VPC the ASG should be deployed in
-    -  __type__: `string`
+## Optional Inputs
 
+The following input variables are optional (have default values):
 
+### application\_port
 
+Description: port the service licenses to
+
+Type: `number`
+
+Default: `6379`
+
+### csgs
+
+Description: security groups which get added to the security group as ingress
+
+Type: `list(string)`
+
+Default: `[]`
+
+### engine\_version
+
+Description: redis version to run
+
+Type: `string`
+
+Default: `"3.2.10"`
+
+### hostname
+
+Description: hostname of the redis
+
+Type: `string`
+
+Default: `"redis"`
+
+### node\_type
+
+Description: type of machine to run on
+
+Type: `string`
+
+Default: `"cache.t2.small"`
+
+### parameter\_group\_name
+
+Description: parameter group for the redis
+
+Type: `string`
+
+Default: `"default.redis3.2"`
+
+### short\_name\_length
+
+Description: desired string length which is applied to various naming strings, to make the names shorter
+
+Type: `number`
+
+Default: `4`
+
+### tags
+
+Description: common tags to add to the ressources
+
+Type: `map(string)`
+
+Default: `{}`
+
+## Outputs
+
+The following outputs are exported:
+
+### address
+
+Description: cluster adress
+
+### redis\_fqdn
+
+Description: fqdn created from domain and hostname
+
+### sg
+
+Description: SG which is attached to the service
+
+### sg\_intra
+
+Description: an intra SG, intended to added to EC2 instsances for access (DEPRECATED)
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Usage
 
 ```hcl
@@ -99,26 +161,3 @@ module "redis" {
   ]
 }
 ```
-
-## Outputs
-
-- `address`
-    -  __description__: cluster adress
-    -  __type__: `string`
-}
-
-- `redis_fqdn`
-    -  __description__: fqdn created from domain and hostname
-    -  __type__: `string`
-}
-
-- `sg_intra` (DEPRECATED)
-    -  __description__: an intra SG, intended to added to EC2 instsances for access
-    -  __type__: `string`
-  value = aws_security_group.intra.id
-}
-
-- `sg`
-    -  __description__: SG which is attached to the service
-    -  __type__: `string`
-}

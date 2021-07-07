@@ -7,86 +7,152 @@ NOTE: keep the names short, since the maximum length for the name is 20
 This project is [internal open source](https://en.wikipedia.org/wiki/Inner_source)
 and currently maintained by the [INF](https://github.com/orgs/ryte/teams/inf).
 
-## Module Input Variables
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
 
-- `application_port`
-    -  __description__: port the service licenses to
-    -  __type__: `string`
-    -  __default__: 11211
+The following requirements are needed by this module:
 
+- terraform (>= 0.12)
 
-- `az_mode`
-    -  __description__: if the memcache should run in a single AZ oder cross multiple, valid arguments: "single-az" or "cross-az"
-    -  __type__: `string`
-    -  __default__: "single-az"
+## Providers
 
+The following providers are used by this module:
 
-- `csgs`
-    -  __description__: security groups which get added to the security group as ingress
-    -  __type__: `list`
-    -  __default__: []
+- aws
 
+## Required Inputs
 
-- `desired_clusters`
-    -  __description__: amount of cluster members to spawn
-    -  __type__: `string`
-    -  __default__: 2
+The following input variables are required:
 
+### domain
 
-- `domain`
-    -  __description__: the module creates a route53 domain entry and therefore need the domain in which the entry should be created
-    -  __type__: `string`
+Description: the module creates a route53 domain entry and therefore need the domain in which the entry should be created
 
-- `engine_version`
-    -  __description__: memcache version to run
-    -  __type__: `string`
-    -  __default__: "1.4.34"
+Type: `string`
 
-- `environment`
-    -  __description__: the environment this cache is running in (e.g. 'testing')
-    -  __type__: `string`
+### environment
 
-- `hostname`
-    -  __description__: hostname of the memcache
-    -  __type__: `string`
-    -  __default__: "memcache"
+Description: the environment this cache is running in (e.g. 'testing')
 
+Type: `string`
 
-- `instance_type`
-    -  __description__: type of machine to run on
-    -  __type__: `string`
-    -  __default__: "cache.t2.small"
+### subnet\_ids
 
+Description: a list of subnet ids in which the ASG deploys to
 
-- `parameter_group_name`
-    -  __description__: parameter group for the memcache
-    -  __type__: `string`
-    -  __default__: "default.memcached1.4"
+Type: `list(string)`
 
+### vpc\_id
 
-- `short_name_length`
-    -  __description__: desired string length which is applied to various naming strings, to make the names shorter
-    -  __type__: `string`
-    -  __default__: 4
+Description: the VPC the ASG should be deployed in
 
+Type: `string`
 
-- `subnet_ids`
-    -  __description__: a list of subnet ids in which the ASG deploys to
-    -  __type__: `list`
+## Optional Inputs
 
+The following input variables are optional (have default values):
 
-- `tags`
-    -  __description__: a map of tags which is added to all supporting ressources
-    -  __type__: `map`
-    -  __default__: {}
+### application\_port
 
+Description: port the service licenses to
 
-- `vpc_id`
-    -  __description__: the VPC the ASG should be deployed in
-    -  __type__: `string`
+Type: `number`
 
+Default: `11211`
 
+### az\_mode
 
+Description: if the memcache should run in a single AZ oder cross multiple, valid arguments: `single-az` or `cross-az`
+
+Type: `string`
+
+Default: `"single-az"`
+
+### csgs
+
+Description: security groups which get added to the security group as ingress
+
+Type: `list(string)`
+
+Default: `[]`
+
+### desired\_clusters
+
+Description: amount of cluster members to spawn
+
+Type: `string`
+
+Default: `"2"`
+
+### engine\_version
+
+Description: memcache version to run
+
+Type: `string`
+
+Default: `"1.4.34"`
+
+### hostname
+
+Description: hostname of the memcache
+
+Type: `string`
+
+Default: `"memcache"`
+
+### instance\_type
+
+Description: type of machine to run on
+
+Type: `string`
+
+Default: `"cache.t2.small"`
+
+### parameter\_group\_name
+
+Description: parameter group for the memcache
+
+Type: `string`
+
+Default: `"default.memcached1.4"`
+
+### short\_name\_length
+
+Description: desired string length which is applied to various naming strings, to make the names shorter
+
+Type: `number`
+
+Default: `4`
+
+### tags
+
+Description: common tags to add to the ressources
+
+Type: `map(string)`
+
+Default: `{}`
+
+## Outputs
+
+The following outputs are exported:
+
+### database\_fqdn
+
+Description: fqdn created from domain and hostname
+
+### memcache\_address
+
+Description: cluster adress
+
+### sg
+
+Description: SG which is attached to the service
+
+### sg\_intra
+
+Description: an intra SG, intended to added to EC2 instsances for access (DEPRECATED)
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Usage
 
 ```hcl
@@ -108,23 +174,3 @@ module "memcache" {
   csgs                 = []
 }
 ```
-
-## Outputs
-
-- `memcache_address`
-    -  __description__: cluster adress
-    -  __type__: `string`
-
-
-- `database_fqdn`
-    -  __description__: fqdn created from domain and hostname
-    -  __type__: `string`
-
-
-- `sg_intra` (DEPRECATED)
-    -  __description__: an intra SG, intended to added to EC2 instsances for access
-    -  __type__: `string`
-
-- `sg`
-    -  __description__: SG which is attached to the service
-    -  __type__: `string`
